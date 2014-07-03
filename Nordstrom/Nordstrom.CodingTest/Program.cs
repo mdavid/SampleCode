@@ -63,23 +63,58 @@ using System.Linq;
 
 namespace Nordstrom.CodingTest
 {
+	/// <summary>
+	/// Nordstrom WordSearch Coding Test
+	/// </summary>
 	class WordSearch
 	{
-		/*
-		LR – Left to right
-		RL – Right to left
-		U – Up
-		D – Down
-		DUL – Diagonal up left
-		DUR – Diagonal up right
-		DDL – Diagonal down left
-		DDR – Diagonal down right
-		*/
+		/// <summary>
+		/// enum to allow a statically-typed designation for ease of reference and code reuse
+		/// </summary>
+		enum Designation {
+			LR, //Left to Right
+			RL, //Right to Left
+			U, //Up
+			D, //Down
+			DUL, // Diagonal up left
+			DUR, // Diagonal up right
+			DDL, // Diagonal down left
+			DDR, // Diagonal down right
+		}
 
+		/// <summary>
+		/// The wordlist file to be processed.
+		/// </summary>
+		static readonly string wordListFile = @".\WordList.txt";
+
+		/// <summary>
+		/// The word search file to be processed.
+		/// </summary>
+		static readonly string wordSearchFile = @".\WordSearch.txt";
+
+
+		/// <summary>
+		/// Initializes the <see cref="Nordstrom.CodingTest.WordSearch"/> class. The static constructor will be initiated first during 
+		/// initial object creation to ensure we have properly set values of static variables before accessing the object and running the program.
+		/// </summary>
+		static WordSearch(){
+			/// We could move the instantiation of the static readonly wordListFile and wordSearchFile into here for ease of readability
+			/// and consistency of code but in this case it doesn't help much so there's no need. 
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Nordstrom.CodingTest.WordSearch"/> class.
+		/// </summary>
+		public WordSearch(){
+			/// Basic class constructor. We don't need it, but I put it here for sake of consistency in best practice coding standards.
+		}
+
+		/// <summary>
+		/// The entry point of the program, where the program control starts and ends.
+		/// </summary>
+		/// <param name="args">The command-line arguments.</param>
 		public static void Main (string[] args)
 		{
-			string wordListFile = @".\WordList.txt";
-			string wordSearchFile = @".\WordSearch.txt";
 			IEnumerable<string> wordList = ReadLinesFromFile (wordListFile);
 			IEnumerable<string> wordSearch = ReadLinesFromFile (wordSearchFile);
 
@@ -87,16 +122,16 @@ namespace Nordstrom.CodingTest
 
 				foreach (string word in wordList) {
 
-					bool lineContainsWord = line.Contains (word);
+					bool lrLineContainsWord = LineContainsWord (line, word);
 
-					if (lineContainsWord) {
+					if (lrLineContainsWord) {
 						Console.WriteLine ("The word {0} was found LR in the line {1}", word, line);
 					}
 
 					string reverseLine = line.Reverse ();
-					bool reverseLineContainsWord = reverseLine.Contains (word);
+					bool rlLineContainsWord = LineContainsWord (reverseLine, word);
 
-					if (reverseLineContainsWord) {
+					if (rlLineContainsWord) {
 						Console.WriteLine ("The word {0} was found RL in the line {1}", word, reverseLine);
 					}
 				}
@@ -105,6 +140,11 @@ namespace Nordstrom.CodingTest
 			Console.Read ();
 		}
 
+		/// <summary>
+		/// LINQ-compatible StreamReader that reads each line from the specified file.
+		/// </summary>
+		/// <returns>The lines from the file in a LINQ-compatible IEnumerable<string> container.</returns>
+		/// <param name="fileName">The name of the file (path to file must be included as part of the string) to read from.</param>
 		static IEnumerable<string> ReadLinesFromFile (string fileName)
 		{
 			using (StreamReader reader = new StreamReader (fileName, Encoding.UTF8, true)) {
@@ -112,15 +152,30 @@ namespace Nordstrom.CodingTest
 					string line = reader.ReadLine ();
 					if (string.IsNullOrEmpty(line))
 						break;
-					yield return line.ToUpperInvariant ().Replace (" ", "");
+					yield return NormalizeLine (line);
 				}
 			}
 		}
 
-		static IEnumerable<bool> ContainsWord (IEnumerable<string> lines, string word)
+		/// <summary>
+		/// Normalizes the line to uppercase using the casing rules of the invariant to ensure an equal comparison is being made.
+		/// Removes all spaces to ensure that lines from WordList.txt that contain two words can be found within the line from WordSearch.txt currently being 
+		/// </summary>
+		/// <returns>The normalized line.</returns>
+		/// <param name="line">The line to be normalized.</param>
+		static string NormalizeLine(string line) {
+			return line.ToUpperInvariant ().Replace (" ", "");
+		}
+
+		/// <summary>
+		/// Boolean check to determine whether the specified line contains the given word.
+		/// </summary>
+		/// <returns><c>true</c>, if contains word was lined, <c>false</c> otherwise.</returns>
+		/// <param name="line">The line to be evaluated for containment of the word.</param>
+		/// <param name="word">The word to be evaluated for containment in the line.</param>
+		static bool LineContainsWord (string line, string word)
 		{
-			return from line in lines
-			       select line.Contains (word);
+			return line.Contains (word);
 		}
 	}
 }

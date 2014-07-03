@@ -29,8 +29,17 @@ using System.Text;
 
 namespace Nordstrom.CodingTest
 {
+	/// <summary>
+	/// String extension methods. I made the reverse methods static extension methods for ease of reuse of commonly used string functions.
+	/// In this particular case it's really not necessary (not a lot of need for reuse in this particular problem use case) but
+	/// I placed them here to highlight what I consider to be best practice for extending the functionality of sealed classes such as the String class.
+	/// </summary> 
 	public static class StringExtensionMethods
 	{
+		/// <summary>
+		/// Reverse the specified line.
+		/// </summary>
+		/// <param name="line">Line.</param>
 		public static string Reverse (this string line)
 		{
 			if (string.IsNullOrEmpty (line))
@@ -43,6 +52,10 @@ namespace Nordstrom.CodingTest
 			return line;
 		}
 
+		/// <summary>
+		/// Reverse the specified builder.
+		/// </summary>
+		/// <param name="builder">Builder.</param>
 		public static void Reverse(this StringBuilder builder)
 		{
 			if (builder.Length  > 1)
