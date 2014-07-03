@@ -63,19 +63,29 @@ using System.Linq;
 
 namespace Nordstrom.CodingTest
 {
+	/// <summary>
+	/// Nordstrom WordSearch Coding Test
+	/// </summary>
 	class WordSearch
 	{
-		/*
-		LR – Left to right
-		RL – Right to left
-		U – Up
-		D – Down
-		DUL – Diagonal up left
-		DUR – Diagonal up right
-		DDL – Diagonal down left
-		DDR – Diagonal down right
-		*/
+		/// <summary>
+		/// enum to allow a statically-typed designation for ease of reference and code reuse
+		/// </summary>
+		enum Designation {
+			LR, //Left to Right
+			RL, //Right to Left
+			U, //Up
+			D, //Down
+			DUL, // Diagonal up left
+			DUR, // Diagonal up right
+			DDL, // Diagonal down left
+			DDR, // Diagonal down right
+		}
 
+		/// <summary>
+		/// The entry point of the program, where the program control starts and ends.
+		/// </summary>
+		/// <param name="args">The command-line arguments.</param>
 		public static void Main (string[] args)
 		{
 			string wordListFile = @".\WordList.txt";
@@ -92,8 +102,9 @@ namespace Nordstrom.CodingTest
 					if (lrLineContainsWord) {
 						Console.WriteLine ("The word {0} was found LR in the line {1}", word, line);
 					}
-						
-					bool rlLineContainsWord = LineContainsWord (line.Reverse (), word);
+
+					string reverseLine = line.Reverse ();
+					bool rlLineContainsWord = LineContainsWord (reverseLine, word);
 
 					if (rlLineContainsWord) {
 						Console.WriteLine ("The word {0} was found RL in the line {1}", word, reverseLine);
@@ -104,6 +115,11 @@ namespace Nordstrom.CodingTest
 			Console.Read ();
 		}
 
+		/// <summary>
+		/// LINQ-compatible StreamReader that reads each line from the specified file.
+		/// </summary>
+		/// <returns>The lines from the file in a LINQ-compatible IEnumerable<string>.</returns>
+		/// <param name="fileName">The name of the file (path to file must be included as part of the string) to read from.</param>
 		static IEnumerable<string> ReadLinesFromFile (string fileName)
 		{
 			using (StreamReader reader = new StreamReader (fileName, Encoding.UTF8, true)) {
@@ -116,6 +132,12 @@ namespace Nordstrom.CodingTest
 			}
 		}
 
+		/// <summary>
+		/// Boolean check as to whether the specified line contains the given word.
+		/// </summary>
+		/// <returns><c>true</c>, if contains word was lined, <c>false</c> otherwise.</returns>
+		/// <param name="line">The line to be evaluated for containment of the word.</param>
+		/// <param name="word">The word to be evaluated for containment in the line.</param>
 		static bool LineContainsWord (string line, string word)
 		{
 			return line.Contains (word);
