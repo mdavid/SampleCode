@@ -118,7 +118,7 @@ namespace Nordstrom.CodingTest
 		/// <summary>
 		/// LINQ-compatible StreamReader that reads each line from the specified file.
 		/// </summary>
-		/// <returns>The lines from the file in a LINQ-compatible IEnumerable<string>.</returns>
+		/// <returns>The lines from the file in a LINQ-compatible IEnumerable<string> container.</returns>
 		/// <param name="fileName">The name of the file (path to file must be included as part of the string) to read from.</param>
 		static IEnumerable<string> ReadLinesFromFile (string fileName)
 		{
@@ -127,13 +127,23 @@ namespace Nordstrom.CodingTest
 					string line = reader.ReadLine ();
 					if (string.IsNullOrEmpty(line))
 						break;
-					yield return line.ToUpperInvariant ().Replace (" ", "");
+					yield return NormalizeLine (line);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Boolean check as to whether the specified line contains the given word.
+		/// Normalizes the line to uppercase using the casing rules of the invariant to ensure an equal comparison is being made.
+		/// Removes all spaces to ensure that lines from WordList.txt that contain two words can be found within the line from WordSearch.txt currently being 
+		/// </summary>
+		/// <returns>The normalized line.</returns>
+		/// <param name="line">The line to be normalized.</param>
+		static string NormalizeLine(string line) {
+			return line.ToUpperInvariant ().Replace (" ", "");
+		}
+
+		/// <summary>
+		/// Boolean check to determine whether the specified line contains the given word.
 		/// </summary>
 		/// <returns><c>true</c>, if contains word was lined, <c>false</c> otherwise.</returns>
 		/// <param name="line">The line to be evaluated for containment of the word.</param>
