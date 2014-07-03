@@ -87,16 +87,15 @@ namespace Nordstrom.CodingTest
 
 				foreach (string word in wordList) {
 
-					bool lineContainsWord = line.Contains (word);
+					bool lrLineContainsWord = LineContainsWord (line, word);
 
-					if (lineContainsWord) {
+					if (lrLineContainsWord) {
 						Console.WriteLine ("The word {0} was found LR in the line {1}", word, line);
 					}
+						
+					bool rlLineContainsWord = LineContainsWord (line.Reverse (), word);
 
-					string reverseLine = line.Reverse ();
-					bool reverseLineContainsWord = reverseLine.Contains (word);
-
-					if (reverseLineContainsWord) {
+					if (rlLineContainsWord) {
 						Console.WriteLine ("The word {0} was found RL in the line {1}", word, reverseLine);
 					}
 				}
@@ -117,10 +116,9 @@ namespace Nordstrom.CodingTest
 			}
 		}
 
-		static IEnumerable<bool> ContainsWord (IEnumerable<string> lines, string word)
+		static bool LineContainsWord (string line, string word)
 		{
-			return from line in lines
-			       select line.Contains (word);
+			return line.Contains (word);
 		}
 	}
 }
