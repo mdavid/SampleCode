@@ -83,13 +83,38 @@ namespace Nordstrom.CodingTest
 		}
 
 		/// <summary>
+		/// The wordlist file to be processed.
+		/// </summary>
+		static readonly string wordListFile = @".\WordList.txt";
+
+		/// <summary>
+		/// The word search file to be processed.
+		/// </summary>
+		static readonly string wordSearchFile = @".\WordSearch.txt";
+
+
+		/// <summary>
+		/// Initializes the <see cref="Nordstrom.CodingTest.WordSearch"/> class. The static constructor will be initiated first during 
+		/// initial object creation to ensure we have properly set values of static variables before accessing the object and running the program.
+		/// </summary>
+		static WordSearch(){
+			/// We could move the instantiation of the static readonly wordListFile and wordSearchFile into here for ease of readability
+			/// and consistency of code but in this case it doesn't help much so there's no need. 
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Nordstrom.CodingTest.WordSearch"/> class.
+		/// </summary>
+		public WordSearch(){
+			/// Basic class constructor. We don't need it, but I put it here for sake of consistency in best practice coding standards.
+		}
+
+		/// <summary>
 		/// The entry point of the program, where the program control starts and ends.
 		/// </summary>
 		/// <param name="args">The command-line arguments.</param>
 		public static void Main (string[] args)
 		{
-			string wordListFile = @".\WordList.txt";
-			string wordSearchFile = @".\WordSearch.txt";
 			IEnumerable<string> wordList = ReadLinesFromFile (wordListFile);
 			IEnumerable<string> wordSearch = ReadLinesFromFile (wordSearchFile);
 
