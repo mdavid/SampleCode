@@ -85,12 +85,12 @@ namespace Nordstrom.CodingTest
 		/// <summary>
 		/// The wordlist file to be processed.
 		/// </summary>
-		static readonly string wordListFile = @".\WordList.txt";
+		static readonly string wordListFile = @"WordList.txt";
 
 		/// <summary>
 		/// The word search file to be processed.
 		/// </summary>
-		static readonly string wordSearchFile = @".\WordSearch.txt";
+		static readonly string wordSearchFile = @"WordSearch.txt";
 
 
 		/// <summary>

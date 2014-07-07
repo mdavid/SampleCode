@@ -3,6 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nordstrom.CodingTest", "Nordstrom.CodingTest\Nordstrom.CodingTest.csproj", "{FB1C9AFD-72DC-4239-9043-B7739DEB4FFA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FD4AF19E-0D5D-4E0C-9126-1F9052304079}"
+	ProjectSection(SolutionItems) = preProject
+		Makefile = Makefile
+		Makefile.in = Makefile.in
+		aclocal.m4 = aclocal.m4
+		autogen.sh = autogen.sh
+		configure.ac = configure.ac
+		Makefile.am = Makefile.am
+		Makefile.include = Makefile.include
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +24,8 @@ Global
 		{FB1C9AFD-72DC-4239-9043-B7739DEB4FFA}.Debug|x86.Build.0 = Debug|x86
 		{FB1C9AFD-72DC-4239-9043-B7739DEB4FFA}.Release|x86.ActiveCfg = Release|x86
 		{FB1C9AFD-72DC-4239-9043-B7739DEB4FFA}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Nordstrom.CodingTest\Nordstrom.CodingTest.csproj
